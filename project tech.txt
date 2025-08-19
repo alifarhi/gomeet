@@ -1,0 +1,4 @@
+react nextjs git with code rabbit ai 
+database: postgrel:neon
+           drazzel
+
