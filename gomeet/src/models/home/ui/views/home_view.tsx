@@ -8,10 +8,9 @@ export const HomeView = () => {
   const { data: session } = authClient.useSession();
   const router = useRouter();
 
-  if (!session) {
-    return <p>Not logged in.</p>;
-  }
-
+  if (!session){
+    return <p>not Logged</p>
+       };
   return (
     <div className="flex flex-col p-4 gap-y-4">
       <p>Logged in as {session.user.name}</p>

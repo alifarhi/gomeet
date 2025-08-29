@@ -9,9 +9,6 @@ const page = async() => {
 const session= await auth.api.getSession({
           headers: await headers(),  
        });
-        if (!session) {
-       redirect("/");
-     }
 return<SignInView/>
 
 }

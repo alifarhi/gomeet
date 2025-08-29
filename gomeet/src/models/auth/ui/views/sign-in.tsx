@@ -13,10 +13,6 @@ import { authClient } from "@/lib/auth-clients";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Form,FormControl,FormField,FormItem,FormLabel,FormMessage } from "@/components/ui/form";
-import { Resolver } from "dns";
-import { Span } from "next/dist/trace";
-import { Schema } from "better-auth";
-import { Provider } from "@radix-ui/react-tooltip";
 import { useRouter } from "next/navigation";
 import { FaGithub , FaGoogle} from "react-icons/fa"; 
 
@@ -45,15 +41,17 @@ export const SignInView = () => {
     {
       email: data.email,
       password:data.password,
-      callbackURL:"/",
     },
     {
       onSuccess: ()=>{
         setpending(false);
+        router.push("/");
       },
-      onError: ({ error })=>{
-        seterror(error.message)
-      },
+     onError: ({ error }) => {
+           seterror(error.message);
+           setpending(false);  // ensure button gets re-enabled
+         },
+
      },
     );
   };
@@ -64,16 +62,16 @@ export const SignInView = () => {
    authClient.signIn.social(
     {
       provider:provider,
-      callbackURL:"/",
     },
     {
       onSuccess: ()=>{
         setpending(false);
         router.push("/");
       },
-      onError: ({error})=>{
-        seterror(error.message)
-      },
+      onError: ({ error }) => {
+        seterror(error.message);
+        setpending(false);  
+       },
      },
     );
     
@@ -179,10 +177,15 @@ export const SignInView = () => {
           </Form>
             
 
-            <div className="bg-radial from-grey-100 to-blue-800 relative hidden md:flex flex-col
+            <div className="bg-radial from-sidebar-accent to-sidebar relative hidden md:flex flex-col
             gap-y-4 items-center justify-center ">
-              <img src="/logo.svg" alt="Image" className="h-[250px] w-[250px]"/>
+              <img src="/logo.svg" alt="Image" className="h-[150px] w-[150px]"/>
+              <p className="text-3xl font-semibold text-white">
+                GoMeet
+              </p>
             </div>
+
+
         </CardContent>
            </Card>
            <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
