@@ -1,7 +1,7 @@
 "use client";
 
-import { Github, OctagonAlertIcon } from "lucide-react"
-import { email, z } from "zod";
+import { Github, OctagonAlertIcon } from "lucide-react";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
@@ -14,11 +14,8 @@ import { authClient } from "@/lib/auth-clients";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Form,FormControl,FormField,FormItem,FormLabel,FormMessage } from "@/components/ui/form";
-import { Resolver } from "dns";
-import { Span } from "next/dist/trace";
-import { Schema } from "better-auth";
 import { useRouter } from "next/navigation";
- 
+
 
 
 const formschema = z.object({
@@ -34,7 +31,7 @@ confirmPassword:z.string().min(1,{message:"confirm password"}),
 
 
 export const SignUpView = () => { 
-    const router = useRouter();
+   const router = useRouter();
    const [pending ,setpending]=useState(false);
    const [error, seterror]=useState<string | null>(null);
    
@@ -56,7 +53,6 @@ export const SignUpView = () => {
       name:data.name,
       email: data.email,
       password:data.password,
-      callbackURL:"/",
     },
     {
       onSuccess: ()=>{
@@ -77,11 +73,11 @@ export const SignUpView = () => {
    authClient.signIn.social(
     {
       provider:provider,
-      callbackURL:"/",
     },
     {
       onSuccess: ()=>{
         setpending(false);
+        router.push("/");
       },
       onError: ({error})=>{
         seterror(error.message)
@@ -230,9 +226,12 @@ export const SignUpView = () => {
           </Form>
             
 
-            <div className="bg-radial from-grey-100 to-blue-800 relative hidden md:flex flex-col
+            <div className="bg-radial from-sidebar-accent to-sidebar relative hidden md:flex flex-col
             gap-y-4 items-center justify-center ">
-              <img src="/logo.svg" alt="Image" className="h-[250px] w-[250px]"/>
+              <img src="/logo.svg" alt="Image" className="h-[150px] w-[150px]"/>
+              <p className="text-3xl font-semibold text-white">
+                GoMeet
+              </p>
             </div>
         </CardContent>
            </Card>
