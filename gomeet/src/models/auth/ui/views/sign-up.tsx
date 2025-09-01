@@ -209,7 +209,6 @@ export const SignUpView = () => {
                      <Button 
                       disabled={pending}
                        onClick={()=>onSocial("github")} 
-                      variant="outline"
                       type="button" 
                       className="w-full" > 
                        <FaGithub />              
