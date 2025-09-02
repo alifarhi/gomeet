@@ -1,27 +1,16 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { authClient } from "@/lib/auth-clients";
-import { useRouter } from "next/navigation";
+import { useTRPC } from "@/trpc/client";
+import { useQuery } from "@tanstack/react-query";
+
 
 export const HomeView = () => {
-  const { data: session } = authClient.useSession();
-  const router = useRouter();
+  const trpc= useTRPC();
+  const { data }= useQuery(trpc.hello.queryOptions({text:"ali"}));
 
-  if (!session){
-    return <p>not Logged</p>
-       };
   return (
-    <div className="flex flex-col p-4 gap-y-4">
-      <p>Logged in as {session.user.name}</p>
-      <Button
-        onClick={async () => {
-          await authClient.signOut();
-          router.push("/sign-in"); // ← This is the right way to redirect
-        }}
-      >
-        Sign-out
-      </Button>
+    <div className="flex flex-col gap-y-4 p-2 ">
+         {data?.greeting}
     </div>
   );
 };
