@@ -31,7 +31,7 @@ return(
     :<PanelLeftCloseIcon className="size-4"/>
     }
  </Button>
- <Button className="h-9 w-[240px] justify-start font-normal text-muted-foreground hover:text-muted-foreground"
+ <Button className="h-9 w-[300px] justify-start font-normal text-muted-foreground hover:text-muted-foreground"
   variant="outline"
   size="sm" onClick={()=>setcommandOpen((open)=>!open)}>
     <SearchIcon/>
