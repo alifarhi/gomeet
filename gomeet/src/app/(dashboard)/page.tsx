@@ -8,6 +8,9 @@ const Page = async () => {
   const session = await auth.api.getSession({
     headers: await headers(), // no need for await
   });
+  if(!session){
+    redirect("/sign-in")
+  }
   return <HomeView />;
 };
 
