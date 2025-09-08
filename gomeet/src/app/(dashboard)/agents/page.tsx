@@ -10,7 +10,7 @@ import { auth } from "@/lib/auth";
 
  const page = async() => {
     const session = await auth.api.getSession({
-        headers: await headers(), // no need for await
+        headers: await headers(),
       });
       if(!session){
         redirect("/sign-in")
