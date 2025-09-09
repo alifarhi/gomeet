@@ -30,7 +30,7 @@ const createAgent= useMutation(
     trpc.agents.create.mutationOptions({ 
         onSuccess:()=>{
             queryclient.invalidateQueries(
-                trpc.agents.getMany.queryOptions()
+                trpc.agents.getMany.queryOptions({})
             );
             if(initialValues?.id){ 
                 queryclient.invalidateQueries(
