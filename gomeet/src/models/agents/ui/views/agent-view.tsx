@@ -9,15 +9,21 @@ import { DataTable } from "../components/data_table";
 import { columns} from "../components/columns";
 import { AgentGetOne } from "../../types";
 import { EmptyState } from "@/components/empty_state";
+import { useAgentsFiltre } from "../../hooks/use-agents-filtre";
+import { DataPagination } from "../components/datapagination";
 
 export const AgentsView =()=>{ 
+    const [filters,setFilters] =useAgentsFiltre();
     const trpc = useTRPC();
-    const {data} = useSuspenseQuery(trpc.agents.getMany.queryOptions());
+    const {data} = useSuspenseQuery(trpc.agents.getMany.queryOptions({
+        ...filters
+    }));
 
     return(
         <div className="flex-1 pb-4 px-4 md:px-8 flex flex-col gap-y-4">
-            <DataTable data={data} columns={columns} />
-            {data.length===0 &&(
+            <DataTable data={data.items} columns={columns} />
+            <DataPagination page={filters.page} totalPages={data.totalPages} onPageChange={(page)=>setFilters({page})} />
+            {data.items.length===0 &&(
              <EmptyState
              title="create your first Agent"
              description="get started with creating your first Agent to attend a meeting "
