@@ -125,3 +125,6 @@
     @apply bg-background text-foreground;
   }
 }
+.reset-tw, .reset-tw *{
+  all:revert !important;
+}
