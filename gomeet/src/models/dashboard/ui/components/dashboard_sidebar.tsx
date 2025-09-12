@@ -25,7 +25,7 @@ import { DashboardUserButton } from "./dashboarduserbutton";
     {
         icon:VideoIcon,
         label:"Meeting",
-        href:"/meeting",
+        href:"/meetings",
     },
 
     {

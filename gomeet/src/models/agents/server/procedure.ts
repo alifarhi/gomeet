@@ -37,7 +37,7 @@ if (!updateAgent) {
    if(!existingAgents){
     throw new TRPCError({code:"NOT_FOUND",message:"Agent not Found"})
    }
-     await new Promise<void>((resolve) => setTimeout(resolve,3000));
+     await new Promise<void>((resolve) => setTimeout(resolve,2000));
      return existingAgents;
   }),
 
@@ -54,7 +54,7 @@ if (!updateAgent) {
    const data= await db.select({...getTableColumns(agents),meetingCount:sql<number>`5`}).from(agents).where(and(eq(agents.user,ctx.auth.user.id ),search?ilike(agents.name,`%${search}%`):undefined,)).orderBy(desc(agents.createdAt),desc(agents.id)).limit(pagesize).offset((page - 1)*pagesize)
    const [total]=await db.select({count:count()}).from(agents).where(and(eq(agents.user,ctx.auth.user.id ),search?ilike(agents.name,`%${search}%`):undefined,));
    const totalPages=Math.ceil(total.count/pagesize);
-   await new Promise<void>((resolve) => setTimeout(resolve,3000));
+   await new Promise<void>((resolve) => setTimeout(resolve,2000));
      return{
       items:data,
       total:total.count,
