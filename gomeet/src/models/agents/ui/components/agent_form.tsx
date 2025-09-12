@@ -11,6 +11,7 @@ import { GeneratedAvatar } from "@/components/generator-avatar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { id } from "date-fns/locale";
 
 
 interface AgentFormProps{
@@ -28,6 +29,20 @@ const queryclient=useQueryClient();
 
 const createAgent= useMutation(
     trpc.agents.create.mutationOptions({ 
+        onSuccess:()=>{
+            queryclient.invalidateQueries(
+                trpc.agents.getMany.queryOptions({})
+            );
+            onSucces?.();
+        },
+        onError:(error)=>{
+         toast.error(error.message)
+        },
+     }),
+);
+
+const updateAgent= useMutation(
+    trpc.agents.Update.mutationOptions({ 
         onSuccess:()=>{
             queryclient.invalidateQueries(
                 trpc.agents.getMany.queryOptions({})
@@ -54,11 +69,11 @@ defaultValues:{
 });
 
 const isEdit=!!initialValues?.id;
-const isPending=createAgent.isPending;
+const isPending=createAgent.isPending||updateAgent.isPending;
 
 const onSubmit=(values:z.infer<typeof agentsInsertSchema>)=>{
 if (isEdit){
-    console.log("TODO:updateAgent")
+   updateAgent.mutate({...values, id:initialValues.id})
 }else{
     createAgent.mutate(values);
 }
