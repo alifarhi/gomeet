@@ -1,4 +1,5 @@
 import { db } from "@/db";
+import { meetingsInsertSchema, meetingUpdateSchema} from "../schema";
 import { meetings} from "@/db/schema";
 import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
 import z from "zod";
@@ -8,6 +9,24 @@ import { TRPCError } from "@trpc/server";
 
 
 export const MeetingsRouter = createTRPCRouter({
+
+  Update: protectedProcedure.input(meetingUpdateSchema).mutation(async({ctx,input})=>{
+    const [updateMeetings]=await db.update(meetings).set(input).where(and(eq(meetings.id,input.id),eq(meetings.user,ctx.auth.user.id))).returning()
+  if (!updateMeetings) {
+      throw new  TRPCError({
+        code:"NOT_FOUND",
+        message:"Meeting not Found...",
+      });
+    }
+       return updateMeetings;
+   }),
+  
+
+  create: protectedProcedure.input(meetingsInsertSchema).mutation(async({input,ctx})=>{
+       const [createdMeeting]=await db.insert(meetings).values({ ...input,user:ctx.auth.user.id})
+       .returning();
+       return createdMeeting;
+      }),
 
  getOne:protectedProcedure.input(z.object({id:z.string()})).query(async({input,ctx})=>{
    const [existingMeetings]= await db.select({...getTableColumns(meetings)}).from(meetings).where(and(eq(meetings.id,input.id),eq(meetings.user,ctx.auth.user.id)));
