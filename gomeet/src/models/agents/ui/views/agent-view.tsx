@@ -5,13 +5,13 @@ import { ErrorState } from "@/components/error_state";
 import { LoadingState } from "@/components/loading_state";
 import { useTRPC } from "@/trpc/client";
 import {  useSuspenseQuery } from "@tanstack/react-query";
-import { DataTable } from "../components/data_table";
 import { columns} from "../components/columns";
 import { EmptyState } from "@/components/empty_state";
 import { useAgentsFiltre } from "../../hooks/use-agents-filtre";
 import { DataPagination } from "../components/datapagination";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {useRouter} from "next/navigation";
+import { DataTable } from "@/components/data_table";
 
 export const AgentsView =()=>{ 
     const router= useRouter();
@@ -28,7 +28,7 @@ export const AgentsView =()=>{
             <DataPagination page={filters.page} totalPages={data.totalPages} onPageChange={(page)=>setFilters({page})} />
             {data.items.length===0 &&(
              <EmptyState
-             title="create your first Agent"
+             title="create your first Meeting"
              description="get started with creating your first Agent to attend a meeting "
              />
             )}
