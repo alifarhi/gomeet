@@ -1,9 +1,9 @@
 import { db } from "@/db";
 import { meetingsInsertSchema, meetingUpdateSchema} from "../schema";
-import { meetings} from "@/db/schema";
+import { agents, meetings} from "@/db/schema";
 import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
 import z from "zod";
-import { eq, getTableColumns,and, ilike, desc, count } from "drizzle-orm";
+import { eq, getTableColumns,and, ilike, desc, count, sql } from "drizzle-orm";
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE, MIN_PAGE_SIZE } from "@/constant";
 import { TRPCError } from "@trpc/server";
 
@@ -47,8 +47,8 @@ export const MeetingsRouter = createTRPCRouter({
   )).
    query(async({ctx,input})=>{
    const {search,page,pagesize}=input;
-   const data= await db.select({...getTableColumns(meetings),}).from(meetings).where(and(eq(meetings.user,ctx.auth.user.id ),search?ilike(meetings.name,`%${search}%`):undefined,)).orderBy(desc(meetings.createdAt),desc(meetings.id)).limit(pagesize).offset((page - 1)*pagesize)
-   const [total]=await db.select({count:count()}).from(meetings).where(and(eq(meetings.user,ctx.auth.user.id ),search?ilike(meetings.name,`%${search}%`):undefined,));
+   const data= await db.select({...getTableColumns(meetings),agents:agents,duration:sql<number>`EXTRACT(EPOCH FROM(ended_at - started_at))`.as("duration")}).from(meetings).innerJoin(agents,eq(meetings.agentId,agents.id)).where(and(eq(meetings.user,ctx.auth.user.id ),search?ilike(meetings.name,`%${search}%`):undefined,)).orderBy(desc(meetings.createdAt),desc(meetings.id)).limit(pagesize).offset((page - 1)*pagesize)
+   const [total]=await db.select({count:count()}).from(meetings).innerJoin(agents,eq(meetings.agentId,agents.id)).where(and(eq(meetings.user,ctx.auth.user.id ),search?ilike(meetings.name,`%${search}%`):undefined,));
    const totalPages=Math.ceil(total.count/pagesize);
    await new Promise<void>((resolve) => setTimeout(resolve,2000));
      return{
