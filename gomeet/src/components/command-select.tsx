@@ -24,7 +24,11 @@ import { CommandEmpty, CommandInput, CommandItem, CommandList, CommandResponsive
 
 export const CommandSelect = ({options,onSelect,onSearch,value,placeholder="select an option",isSearchabel,className}:Props) => {
 const [open,setOpen]=useState(false);
-const SelectedOption=options.find((option)=>option.value===value)
+const SelectedOption=options.find((option)=>option.value===value);
+const handleOpenChange=(value:boolean)=>{
+  onSearch?.("");
+  setOpen(value);
+};
 
   return (
     <>
@@ -34,7 +38,7 @@ const SelectedOption=options.find((option)=>option.value===value)
         </div>
         <ChevronsUpDownIcon/>
     </Button>
-    <CommandResponsiveDialog  shouldFilter={!onSearch} open={open} onOpenChange={setOpen} >
+    <CommandResponsiveDialog  shouldFilter={!onSearch} open={open} onOpenChange={handleOpenChange} >
           <CommandInput  placeholder="Search..." onValueChange={onSearch} />
           <CommandEmpty>
             <span className="text-muted-foreground text-sm" >
