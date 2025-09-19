@@ -59,7 +59,6 @@ const options=[
 import React from 'react'
 import { useMeetingsFiltre } from "../../hooks/use-meetings-filtre";
 import { CommandSelect } from "@/components/command-select";
-import { Value } from "@radix-ui/react-select";
 
 export const StatusFilter = () => {
     const [filters,setFilters]=useMeetingsFiltre();
