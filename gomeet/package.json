@@ -9,7 +9,8 @@
     "lint": "next lint",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "dev:webhook":" ngrok http --url=unethylated-noninterpretational-haley.ngrok-free.dev 3000"
+    "dev:webhook":" ngrok http --url=unethylated-noninterpretational-haley.ngrok-free.dev 3000",
+    "vercel-build": "next build"
   },
   "dependencies": {
     "@dicebear/collection": "^9.2.2",
