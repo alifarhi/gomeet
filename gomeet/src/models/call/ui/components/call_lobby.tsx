@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { auth } from "@/lib/auth";
 import { authClient } from "@/lib/auth-clients";
 import { generateAvatarUi } from "@/lib/avatar";
 import {
