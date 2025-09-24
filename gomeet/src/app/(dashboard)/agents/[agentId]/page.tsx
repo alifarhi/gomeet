@@ -8,10 +8,10 @@ interface Props {
   params: { agentId: string };
 }
 
-export default async function AgentPage({ params }: Props) {
+export default async function Page({ params }: Props) {
   const { agentId } = params;
-  const queryClient = getQueryClient();
 
+  const queryClient = getQueryClient();
   await queryClient.prefetchQuery(
     trpc.agents.getOne.queryOptions({ id: agentId })
   );
