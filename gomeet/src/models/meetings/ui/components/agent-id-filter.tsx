@@ -3,9 +3,7 @@ import { useMeetingsFiltre } from '../../hooks/use-meetings-filtre';
 import { useTRPC } from '@/trpc/client';
 import { useQuery } from '@tanstack/react-query';
 import { CommandSelect } from '@/components/command-select';
-import { Value } from '@radix-ui/react-select';
 import { GeneratedAvatar } from '@/components/generator-avatar';
-import { agents } from '@/db/schema';
 
 export const AgentIdFilter = () => {
     const [filters,setFilters]=useMeetingsFiltre();

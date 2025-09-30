@@ -4,6 +4,10 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 First, run the development server:
 
+
+inngest command :
+ // npx inngest-cli@1.6.2 dev ;
+
 ```bash
 npm run dev
 # or

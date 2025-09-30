@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation"; 
 import Image from "next/image";
 import Link from "next/link";
-import { BotIcon, icons, StarIcon, VideoIcon } from "lucide-react";
+import { BotIcon,StarIcon, VideoIcon } from "lucide-react";
 import { Sidebar,
     SidebarContent,
     SidebarFooter,
@@ -11,11 +11,9 @@ import { Sidebar,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
-    SidebarMenuAction,
     SidebarMenuItem
  } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
-import { map } from "zod";
 import { cn } from "@/lib/utils";
 import { DashboardUserButton } from "./dashboarduserbutton";
 

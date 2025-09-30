@@ -1,6 +1,6 @@
 import { EmptyState } from '@/components/empty_state'
 import { Button } from '@/components/ui/button'
-import { BanIcon, VideoIcon } from 'lucide-react'
+import { VideoIcon } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
