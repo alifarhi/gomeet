@@ -7,17 +7,17 @@ interface Props{
 import { ErrorState } from '@/components/error_state';
 import { LoadingState } from '@/components/loading_state';
 import { useTRPC } from '@/trpc/client';
-import { QueryClient, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import React, { useState } from 'react'
 import { MeetingIdViewHeader } from '../components/meeting-id-view-header';
 import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
 import { useConfirm } from '@/hooks/use_confirm';
 import { UpdateMeetingDialog } from '../components/Update-meeting-dialog';
 import { UpcomingState } from '../components/upcoming_state';
 import { ActiveState } from '../components/active_state';
 import { CancelledState } from '../components/cancelled_state ';
 import { ProcessingState } from '../components/processing_state ';
+import { CompletedState } from '../components/completedstate';
 
 export const MeetingIdView = ({meetingId}:Props) => {
     const trpc=useTRPC();
@@ -71,7 +71,7 @@ export const MeetingIdView = ({meetingId}:Props) => {
         />
         {isCancelled && <CancelledState/>}
         {isActive && <ActiveState meetingId={meetingId} />}
-        {isCompleted && <div>Completed</div>}
+        {isCompleted && <CompletedState data={data}/>}
         {isUpcoming && (<UpcomingState 
         meetingId={meetingId}
         onCancelMeeting={()=>{}}

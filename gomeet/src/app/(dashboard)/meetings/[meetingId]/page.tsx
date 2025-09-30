@@ -30,8 +30,8 @@ void queryClient.prefetchQuery(
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<p>todo</p>}>
-         <ErrorBoundary fallback={<p>todo</p>}>
+      <Suspense fallback={<p></p>}>
+         <ErrorBoundary fallback={<p></p>}>
           <MeetingIdView meetingId={meetingId} />
          </ErrorBoundary>
       </Suspense>

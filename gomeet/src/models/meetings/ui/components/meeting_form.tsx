@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useState } from "react";
 import { CommandSelect } from "@/components/command-select";
-import { Value } from "@radix-ui/react-select";
 import { GeneratedAvatar } from "@/components/generator-avatar";
 import { NewAgentDialog } from "@/models/agents/ui/components/new_agent_dialog";
 

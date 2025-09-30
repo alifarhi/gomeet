@@ -2,7 +2,7 @@
 
 import { ErrorState } from "@/components/error_state";
 import { useTRPC } from "@/trpc/client";
-import { useSuspenseQueries, useSuspenseQuery } from "@tanstack/react-query";
+import {  useSuspenseQuery } from "@tanstack/react-query";
 import { CallProvider } from "../components/call-provider";
 
 interface Props {
